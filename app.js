@@ -24,15 +24,43 @@ app.get('/api/v1/projects', async (request, response) => {
   } catch (error) {
     response.status(500).json({ error: 'Internal server error' })
   }
-})
+});
 
+app.get('/api/v1/projects/:id', async (request, response) => {
+  const { id } = request.params;
 
-// get - projects
+  try {
+    const project = await database('projects').where({ id });
+    if (project.length) {
+      response.status(200).json(project);
+    } else {
+      response.status(404).json({ error: 'Project not found' })
+    }
+  } catch (error) {
+    response.status(500).json({ error: 'Internal server error' })
+  }
+});
 
-// get - projects:id
 
 // get - projects/:id/pallets
 
 // get - projects/:id/pallets/:id
+
+app.post('/api/v1/projects', async (request, response) => {
+  const project = request.body;
+
+  if (!project.project_name) {
+    return response.status(422).send({ error: 'POST failed, missing required key: project_name' });
+  }
+
+  try {
+    const newProject = await database('projects').insert(project, 'id')
+    
+    response.status(201).json({ id: newProject[0] })
+  } catch (error) {
+    response.status(500).json({ error: 'Internal server error' })
+  }
+
+});
 
 module.exports = app;
