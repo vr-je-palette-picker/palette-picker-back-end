@@ -13,4 +13,13 @@ app.get('/', (request, response) => {
   response.send(`Let's make the world more colorful!`);
 });
 
+
+// get - projects
+
+// get - projects:id
+
+// get - projects/:id/pallets
+
+// get - projects/:id/pallets/:id
+
 module.exports = app;
