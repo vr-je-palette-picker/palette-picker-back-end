@@ -17,7 +17,7 @@ describe('Server', () => {
     });
   });
 
-  describe('GET /api/v1/projects', () => {
+  describe.only('GET /api/v1/projects', () => {
     it('should return a 200 status code and all of the projects', async () => {
       const expectedProjects = await database('projects').select();
 
@@ -25,7 +25,7 @@ describe('Server', () => {
       const projects = response.body;
 
       expect(response.status).toBe(200);
-      expect(projects).toEqual(expectedProjects)
+      expect(projects[0].project_name).toEqual(expectedProjects[0].project_name);
     });
   });
 
