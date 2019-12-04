@@ -18,8 +18,13 @@
   },
   "homepage": "https://github.com/jmevans0211/palette-picker-back-end#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "knex": "^0.20.3",
+    "node": "^13.2.0",
     "pg": "^7.14.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1"
   }
 }
