@@ -34,7 +34,10 @@ const data = {
       color_4: '#006CAD',
       color_5: '#00C0FA',
       project_name: 'Nature'
-    },
 
+    }
   ]
-}
+};
+
+module.exports = data;
+
