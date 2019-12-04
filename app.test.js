@@ -52,16 +52,16 @@ describe('Server', () => {
     });
 
     describe('POST /api/v1/projects', () => {
-      // it('should return a 201 status code and add a new project to the database', async () => {
-      //   const newProject = { project_name: 'Drag Nation' };
+      it('should return a 201 status code and add a new project to the database', async () => {
+        const newProject = { project_name: 'Drag Nation' };
 
-      //   const response = await request(app).post('/api/v1/projects').send(newProject);
-      //   const projects = await database('projects').where('id', response.body.id).select();
-      //   const project = projects[0];
+        const response = await request(app).post('/api/v1/projects').send(newProject);
+        const projects = await database('projects').where('id', response.body.id).select();
+        const project = projects[0];
 
-      //   expect(response.status).toBe(201);
-      //   expect(project.project_name).toBe(newProject.project_name);
-      // });
+        expect(response.status).toBe(201);
+        expect(project.project_name).toBe(newProject.project_name);
+      });
 
       it('should return a 422 status code upon receving incorrect information from client', async () => {
         const newProject = { projectname: 'Zippity Do Dah' };
@@ -71,18 +71,20 @@ describe('Server', () => {
         expect(response.status).toBe(422);
       });
     });
+
+    describe('PATCH /api/v1/projects/:id', () => {
+      it('should return a 202 status code and update the project name', async () => {
+        const expectedProject = await database('projects').first();
+        const { id } = expectedProject;
+  
+        const newProject = { project_name: 'Tea and Crumpets' };
+
+        const response = await request(app).patch(`/api/v1/projects/${id}`).send(newProject);
+        const projects = await database('projects').where('id', response.body.id).select();
+        const project = projects[0];
+
+        expect(response.status).toBe(202);
+        expect(project.project_name).toBe(newProject.project_name)
+      });
+    });
 });
-
-// it('should return a 201 and add a new student to the database', async () => {
-//   //setup
-//   const newStudent = { lastname: 'Evans', program: 'fe', enrolled: true }
-
-//   //execution
-//   const response = await request(app).post('/api/v1/students').send(newStudent);
-//   const students = await database('students').where('id', response.body.id).select();
-//   const student = students[0];
-
-//   //expectation
-//   expect(response.status).toBe(201);
-//   expect(student.lastname).toBe(newStudent.lastname)
-// });

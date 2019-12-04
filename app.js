@@ -60,7 +60,18 @@ app.post('/api/v1/projects', async (request, response) => {
   } catch (error) {
     response.status(500).json({ error: 'Internal server error' })
   }
+});
 
+app.patch('/api/v1/projects/:id', async (request, response) => {
+  const project = request.body;
+
+  if (!project.project_name) {
+    return response.status(422).send({ error: 'POST failed, missing required key: project_name' });
+  }
+
+  try {
+    const newProject 
+  }
 });
 
 module.exports = app;
