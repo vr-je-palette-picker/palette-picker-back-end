@@ -13,6 +13,19 @@ app.get('/', (request, response) => {
   response.send(`Let's make the world more colorful!`);
 });
 
+app.get('/api/v1/projects', async (request, response) => {
+  try {
+    const projects = await database('projects').select();
+    if (projects.length) {
+      response.status(200).json(projects)
+    } else {
+      response.status(404).json({ error: 'Projects not found' })
+    }
+  } catch (error) {
+    response.status(500).json({ error: 'Internal server error' })
+  }
+})
+
 
 // get - projects
 
