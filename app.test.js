@@ -80,10 +80,10 @@ describe('Server', () => {
         const newProject = { project_name: 'Tea and Crumpets' };
 
         const response = await request(app).patch(`/api/v1/projects/${id}`).send(newProject);
-        const projects = await database('projects').where('id', response.body.id).select();
+        const projects = await database('projects').where('id', id);
         const project = projects[0];
 
-        expect(response.status).toBe(202);
+        expect(response.status).toBe(200);
         expect(project.project_name).toBe(newProject.project_name)
       });
     });
