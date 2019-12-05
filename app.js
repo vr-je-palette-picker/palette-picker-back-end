@@ -42,9 +42,11 @@ app.get('/api/v1/projects/:id', async (request, response) => {
 });
 
 
-// get - projects/:id/pallets
+// get - pallets/:id/
+  // getting all pallets on a single project
 
-// get - projects/:id/pallets/:id
+// get - pallet/:id
+  // getting a single pallet
 
 app.post('/api/v1/projects', async (request, response) => {
   const project = request.body;
@@ -60,6 +62,9 @@ app.post('/api/v1/projects', async (request, response) => {
     response.status(500).json({ error: 'Internal server error' })
   }
 });
+
+// post - api/v1/pallets
+  // making a new pallet (for a project)
 
 app.patch('/api/v1/projects/:id', async (request, response) => {
   const { project_name } = request.body;
@@ -80,22 +85,19 @@ app.patch('/api/v1/projects/:id', async (request, response) => {
   } catch (error) {
     response.status(500).json({ error: 'Internal server error '})
   }
-
 });
+
+// patch - /api/v1/pallet/:id
+  // change info on a single pallet
+    // possible changes: pallet_name, color_1, color_2, color_3, color_4, color_5
+
+// delete - /api/projects/:id
+  // delete project (CASCADE to delete all pallets)
+
+// delete - /api/pallet/:id
+  // delete a pallet from a project
+
 
 module.exports = app;
 
-// app.patch('/api/v1/projects/:name', (request, response) => {
-//   const { name } = request.params;
-//   database('projects').where({ name })
-//     .then(project => {  
-//       if (!project.length) {
-//         return response.status(404).json({ error: `No existing project with name of ${name}`})
-//       }
-//       database('projects').where({ name }).update({
-//         name: request.body.name
-//       })
-//     .then(() => response.status(202).json({ message: `Project name changed to ${request.body.name}`}))
-//     })
-//   .catch((error) => response.status(500).json({ error }))
-// })
+
