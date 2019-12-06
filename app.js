@@ -28,7 +28,7 @@ app.get('/api/v1/projects', async (request, response) => {
 
 app.get('/api/v1/projects/:id', async (request, response) => {
   const { id } = request.params;
-
+  
   try {
     const project = await database('projects').where({ id });
     if (project.length) {
@@ -41,9 +41,35 @@ app.get('/api/v1/projects/:id', async (request, response) => {
   }
 });
 
+app.get('/api/v1/palettes/:id', async (request, response) => {
+  const { id } = request.params
 
-// get - pallets/:id/
-  // getting all pallets on a single project
+  try {
+    const projectPalettes = await database('palettes').where('project_id', id).select();
+    if (projectPalettes.length) {
+      response.status(200).json(projectPalettes)
+    } else {
+      response.status(404).json({ error: 'No palettes found for this project' })
+    }
+  } catch (error) {
+    response.status(500).json({ error: 'Internal server error' })
+  }
+});
+
+app.get('/api/v1/palette/:id', async (request, response) => {
+  const { id } = request.params;
+
+  try {
+    const palette = await database('palettes').where({ id });
+    if (palette.length) {
+      response.status(200).json(palette);
+    } else {
+      response.status(404).json({ error: 'Palette not found' })
+    }
+  } catch (error) {
+    response.status(500).json({ error: 'Internal server error' })
+  }
+});
 
 // get - pallet/:id
   // getting a single pallet
