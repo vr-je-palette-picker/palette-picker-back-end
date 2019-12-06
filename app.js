@@ -156,13 +156,13 @@ app.patch('/api/v1/palette/:id', async (request, response) => {
   const { id } = request.params;
 
   const parameters = [
-    'palette_name',
-    'project_id',
-    'color_1',
-    'color_2',
-    'color_3',
-    'color_4',
-    'color_5'
+    "palette_name",
+    "project_id",
+    "color_1",
+    "color_2",
+    "color_3",
+    "color_4",
+    "color_5"
   ];
 
   try {
