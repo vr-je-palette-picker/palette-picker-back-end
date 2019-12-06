@@ -207,7 +207,7 @@ describe('Server', () => {
   });
 
   describe('PATCH /api/v1/palette/:id', () => {
-    it('should return a 200 status code and update the project param passed in', () => {
+    it('should return a 200 status code and update the project param passed in', async () => {
       const expectedPalette = await database('palettes').first();
       const newInfo = {
         palette_name: 'Fresh Fall',
