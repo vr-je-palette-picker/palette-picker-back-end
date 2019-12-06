@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll"
+    "start": "nodemon server.js",
+    "test": "jest server --forceExit",
+    "test:watch": "jest --watchAll"
   },
   "repository": {
     "type": "git",
