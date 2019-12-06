@@ -268,7 +268,7 @@ describe('Server', () => {
     })
   })
 
-  describe.skip('DELETE /api/v1/palette/:id', () => {
+  describe('DELETE /api/v1/palette/:id', () => {
     it('should return a 200 status code and remove the palette from the project and the database', async () => {
       const currentPalettes = await database('palettes').select();
       const paletteToDelete = await database('palettes').first();

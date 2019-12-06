@@ -71,9 +71,6 @@ app.get('/api/v1/palette/:id', async (request, response) => {
   }
 });
 
-// get - pallet/:id
-  // getting a single pallet
-
 app.post('/api/v1/projects', async (request, response) => {
   const project = request.body;
 
@@ -117,8 +114,26 @@ app.patch('/api/v1/projects/:id', async (request, response) => {
   // change info on a single pallet
     // possible changes: pallet_name, color_1, color_2, color_3, color_4, color_5
 
-// delete - /api/projects/:id
-  // delete project (CASCADE to delete all pallets)
+    
+    // delete - /api/projects/:id
+    // delete project (CASCADE to delete all pallets)
+    
+app.delete('/api/v1/palette/:id', async (request, response) => {
+  const { id } = request.params;
+
+  try {
+    const palette = await database('palettes').where('id', id).del();
+
+    if (palette > 0) {
+      return response.status(200).json()
+    } else {
+      response.status(404).json({error: 'No palette with this id can be found'})
+    }
+  } catch (error) {
+    response.status(500).json(error)
+  }
+});
+
 
 // delete - /api/pallet/:id
   // delete a pallet from a project
