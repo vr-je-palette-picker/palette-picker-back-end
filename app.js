@@ -152,50 +152,38 @@ app.patch('/api/v1/projects/:id', async (request, response) => {
 });
 
 app.patch('/api/v1/palette/:id', async (request, response) => {
-  const palette = request.body;
   const { id } = request.params;
 
   const parameters = [
-    "palette_name",
-    "project_id",
-    "color_1",
-    "color_2",
-    "color_3",
-    "color_4",
-    "color_5"
+    'palette_name',
+    'project_id',
+    'color_1',
+    'color_2',
+    'color_3',
+    'color_4',
+    'color_5'
   ];
 
   try {
-    const patchedPalette = await database('palettes')
-      .where({ id })
-      .first();
-    if (patchedPalette) {
-      for (let requiredParameter of parameters) {
-        if (!palette[requiredParameter]) {
-          response.status(422).json({
-            error: `POST failed, missing required parameters: ${parameters.join(
-              ', '
-            )}. Missing: ${requiredParameter}}`
-          });
-          return;
-        }
-      }
-      const updatedPalette = await database('palettes')
-        .where({ id })
-        .update({ ...palette });
-      return updatedPalette;
-    } else {
+    const patchedPalette = await database('palettes').where('id', id);
+    const truthy = patchedPalette.length ? true : false;
+    if (!truthy) {
       return response
         .status(404)
-        .json({ error: 'This palette does not exist' });
+        .json({ error: `This palette does not exist` });
+    }
+    for (let param of parameters) {
+      if (request.body[param] && truthy) {
+        await database('palettes')
+          .where('id', id)
+          .update(param, request.body[param]);
+        return response.status(202).json({ id: patchedPalette[0].id });
+      }
     }
   } catch (error) {
-    response.status(500).json({ error: 'Internal server error' });
+    response.status(500).json({ error });
   }
 });
-
-// delete - /api/projects/:id
-// delete project (CASCADE to delete all pallets)
 
 app.delete('/api/v1/palette/:id', async (request, response) => {
   const { id } = request.params;
