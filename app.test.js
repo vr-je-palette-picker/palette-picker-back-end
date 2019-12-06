@@ -39,16 +39,16 @@ describe('Server', () => {
       const response = await request(app).get(`/api/v1/projects/${id}`);
       const project = response.body[0];
 
-      
       expect(response.status).toBe(200);
       expect(project.project_name).toEqual(expectedProject.project_name);
     });
-    
+
     it('should return a 404 and the message "Project not found"', async () => {
       const invalidId = -1;
-      
+
       const response = await request(app).get(`/api/v1/projects/${invalidId}`);
-      
+
+
       expect(response.status).toBe(404);
       expect(response.body.error).toBe('Project not found');
     });
@@ -62,6 +62,7 @@ describe('Server', () => {
       const response = await request(app).get(`/api/v1/palettes/${id}`);
       const expectedPalettes = await database('palettes').where('project_id', id).select();
       const { palette_name, color_4 } = response.body[0];
+
 
       expect(response.status).toBe(200);
       expect(palette_name).toEqual(expectedPalettes[0].palette_name);
@@ -101,6 +102,7 @@ describe('Server', () => {
   });
 
   describe.skip('POST /api/v1/projects', () => {
+
     it('should return a 201 status code and add a new project to the database', async () => {
       const newProject = { project_name: 'Drag Nation' };
 
@@ -170,6 +172,7 @@ describe('Server', () => {
     });
   });
 
+
   describe.skip('PATCH /api/v1/projects/:id', () => {
     it('should return a 200 status code and update the project name', async () => {
       const expectedProject = await database('projects').first();
@@ -209,6 +212,7 @@ describe('Server', () => {
 
   describe.skip('PATCH /api/v1/palette/:id', () => {
     it('should return a 200 status code and update the project param passed in', async () => {
+
       const expectedPalette = await database('palettes').first();
       const newInfo = {
         palette_name: 'Fresh Fall',

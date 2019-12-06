@@ -28,7 +28,7 @@ app.get('/api/v1/projects', async (request, response) => {
 
 app.get('/api/v1/projects/:id', async (request, response) => {
   const { id } = request.params;
-  
+
   try {
     const project = await database('projects').where({ id });
     if (project.length) {
@@ -40,6 +40,7 @@ app.get('/api/v1/projects/:id', async (request, response) => {
     response.status(500).json({ error: 'Internal server error' })
   }
 });
+
 
 app.get('/api/v1/palettes/:id', async (request, response) => {
   const { id } = request.params
@@ -70,6 +71,12 @@ app.get('/api/v1/palette/:id', async (request, response) => {
     response.status(500).json({ error: 'Internal server error' })
   }
 });
+
+
+// get - pallets/:id/
+  // getting all pallets on a single project
+
+
 
 app.post('/api/v1/projects', async (request, response) => {
   const project = request.body;
@@ -113,9 +120,8 @@ app.patch('/api/v1/projects/:id', async (request, response) => {
 // patch - /api/v1/pallet/:id
   // change info on a single pallet
     // possible changes: pallet_name, color_1, color_2, color_3, color_4, color_5
-
     
-    // delete - /api/projects/:id
+// delete - /api/projects/:id
     // delete project (CASCADE to delete all pallets)
     
 app.delete('/api/v1/palette/:id', async (request, response) => {
@@ -133,6 +139,10 @@ app.delete('/api/v1/palette/:id', async (request, response) => {
     response.status(500).json(error)
   }
 });
+
+
+// delete - /api/projects/:id
+  // delete project (CASCADE to delete all pallets)
 
 
 // delete - /api/pallet/:id
