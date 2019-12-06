@@ -101,7 +101,7 @@ describe('Server', () => {
     });
   });
 
-  describe.skip('POST /api/v1/projects', () => {
+  describe('POST /api/v1/projects', () => {
 
     it('should return a 201 status code and add a new project to the database', async () => {
       const newProject = { project_name: 'Drag Nation' };
@@ -129,7 +129,7 @@ describe('Server', () => {
     });
   });
 
-  describe.skip('POST /api/v1/palettes', () => {
+  describe('POST /api/v1/palettes', () => {
     it('should return a 201 status code and add a new palette to the database', async () => {
       const { id } = await database('projects').first();
       const newPalette = {

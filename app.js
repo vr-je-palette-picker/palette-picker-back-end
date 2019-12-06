@@ -17,12 +17,12 @@ app.get('/api/v1/projects', async (request, response) => {
   try {
     const projects = await database('projects').select();
     if (projects.length) {
-      response.status(200).json(projects)
+      response.status(200).json(projects);
     } else {
-      response.status(404).json({ error: 'Projects not found' })
+      response.status(404).json({ error: 'Could not get palettes' });
     }
   } catch (error) {
-    response.status(500).json({ error: 'Internal server error' })
+    response.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -34,26 +34,29 @@ app.get('/api/v1/projects/:id', async (request, response) => {
     if (project.length) {
       response.status(200).json(project);
     } else {
-      response.status(404).json({ error: 'Project not found' })
+      response.status(404).json({ error: 'Project not found' });
     }
   } catch (error) {
-    response.status(500).json({ error: 'Internal server error' })
+    response.status(500).json({ error: 'Internal server error' });
   }
 });
 
-
 app.get('/api/v1/palettes/:id', async (request, response) => {
-  const { id } = request.params
+  const { id } = request.params;
 
   try {
-    const projectPalettes = await database('palettes').where('project_id', id).select();
+    const projectPalettes = await database('palettes')
+      .where('project_id', id)
+      .select();
     if (projectPalettes.length) {
-      response.status(200).json(projectPalettes)
+      response.status(200).json(projectPalettes);
     } else {
-      response.status(404).json({ error: 'No palettes found for this project' })
+      response
+        .status(404)
+        .json({ error: 'No palettes found for this project' });
     }
   } catch (error) {
-    response.status(500).json({ error: 'Internal server error' })
+    response.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -65,90 +68,159 @@ app.get('/api/v1/palette/:id', async (request, response) => {
     if (palette.length) {
       response.status(200).json(palette);
     } else {
-      response.status(404).json({ error: 'Palette not found' })
+      response.status(404).json({ error: 'Palette not found' });
     }
   } catch (error) {
-    response.status(500).json({ error: 'Internal server error' })
+    response.status(500).json({ error: 'Internal server error' });
   }
 });
-
-
-// get - pallets/:id/
-  // getting all pallets on a single project
-
-
 
 app.post('/api/v1/projects', async (request, response) => {
   const project = request.body;
 
   if (!project.project_name) {
-    return response.status(422).send({ error: 'POST failed, missing required key: project_name' });
+    return response
+      .status(422)
+      .send({ error: 'POST failed, missing required key: project_name' });
   }
 
   try {
-    const newProject = await database('projects').insert(project, 'id')
-    response.status(201).json({ id: newProject[0] })
+    const newProject = await database('projects').insert(project, 'id');
+    response.status(201).json({ id: newProject[0] });
   } catch (error) {
-    response.status(500).json({ error: 'Internal server error' })
+    response.status(500).json({ error: 'Internal server error' });
   }
 });
 
-// post - api/v1/pallets
-  // making a new pallet (for a project)
+app.post('/api/v1/palettes/:id', async (request, response) => {
+  const palette = request.body;
+  const parameters = [
+    'palette_name',
+    'project_id',
+    'color_1',
+    'color_2',
+    'color_3',
+    'color_4',
+    'color_5'
+  ];
+
+  for (let requiredParameter of parameters) {
+    if (!palette[requiredParameter]) {
+      response.status(422).json({
+        error: `POST failed, missing required parameters: ${parameters.join(
+          ', '
+        )}. Missing: ${requiredParameter}}`
+      });
+      return;
+    }
+  }
+
+  try {
+    const newPalette = await database('palettes').insert(palette, 'id');
+    console.log(response);
+    response.status(201).json({ id: newPalette[0] });
+  } catch (error) {
+    response.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 app.patch('/api/v1/projects/:id', async (request, response) => {
   const { project_name } = request.body;
   const { id } = request.params;
 
   if (!project_name) {
-    return response.status(422).send({ error: 'PATCH failed, missing required key: project_name' });
+    return response
+      .status(422)
+      .send({ error: 'PATCH failed, missing required key: project_name' });
   }
 
   try {
-    const project = await database('projects').where({ id }).update({ project_name })
-    
+    const project = await database('projects')
+      .where({ id })
+      .update({ project_name });
+
     if (project) {
-      return response.status(200).json({ project })
+      return response.status(200).json({ project });
     } else {
-      return response.status(404).json({ error: 'This project does not exist' })
+      return response
+        .status(404)
+        .json({ error: 'This project does not exist' });
     }
   } catch (error) {
-    response.status(500).json({ error: 'Internal server error '})
+    response.status(500).json({ error: 'Internal server error' });
   }
 });
 
-// patch - /api/v1/pallet/:id
-  // change info on a single pallet
-    // possible changes: pallet_name, color_1, color_2, color_3, color_4, color_5
-    
+app.patch('/api/v1/palette/:id', async (request, response) => {
+  const palette = request.body;
+  const { id } = request.params;
+
+  const parameters = [
+    'palette_name',
+    'project_id',
+    'color_1',
+    'color_2',
+    'color_3',
+    'color_4',
+    'color_5'
+  ];
+
+  try {
+    const patchedPalette = await database('palettes')
+      .where({ id })
+      .first();
+    if (patchedPalette) {
+      for (let requiredParameter of parameters) {
+        if (!palette[requiredParameter]) {
+          response.status(422).json({
+            error: `POST failed, missing required parameters: ${parameters.join(
+              ', '
+            )}. Missing: ${requiredParameter}}`
+          });
+          return;
+        }
+      }
+      const updatedPalette = await database('palettes')
+        .where({ id })
+        .update({ ...palette });
+      return updatedPalette;
+    } else {
+      return response
+        .status(404)
+        .json({ error: 'This palette does not exist' });
+    }
+  } catch (error) {
+    response.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // delete - /api/projects/:id
-    // delete project (CASCADE to delete all pallets)
-    
+// delete project (CASCADE to delete all pallets)
+
 app.delete('/api/v1/palette/:id', async (request, response) => {
   const { id } = request.params;
 
   try {
-    const palette = await database('palettes').where('id', id).del();
+    const palette = await database('palettes')
+      .where('id', id)
+      .del();
 
     if (palette > 0) {
-      return response.status(200).json()
+      return response.status(200).json();
     } else {
-      response.status(404).json({error: 'No palette with this id can be found'})
+      response
+        .status(404)
+        .json({ error: 'No palette with this id can be found' });
     }
   } catch (error) {
-    response.status(500).json(error)
+    response.status(500).json(error);
   }
 });
 
-
 // delete - /api/projects/:id
-  // delete project (CASCADE to delete all pallets)
-
+// delete project (CASCADE to delete all pallets)
 
 // delete - /api/pallet/:id
-  // delete a pallet from a project
-
+// delete a pallet from a project
 
 module.exports = app;
-
-
