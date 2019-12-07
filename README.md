@@ -163,11 +163,11 @@ This endpoint will get a single project.
 
 ***
 
-## GET all countries
+## GET all palettes for a single project
 
-This endpoint will get all country info.
+This endpoint will get all palettes for a single project.
 
-`'/api/v1/countries'`
+`'/api/v1/palettes/:id'`
 
 ### Response
 
@@ -178,7 +178,7 @@ This endpoint will get all country info.
   </tr>
   <tr>
     <td>200</td>
-    <td>returns all continents</td>
+    <td>returns all palettes from a specific project</td>
   </tr>
 </table>
 
@@ -193,17 +193,42 @@ This endpoint will get all country info.
   <tr>
     <td>id</td>
     <td>integer</td>
-    <td>unique id for each individual country</td>
+    <td>unique id for each individual </td>
   </tr>
   <tr>
-    <td>country</td>
+    <td>palette_name</td>
     <td>string</td>
-    <td>country name</td>
+    <td>palette name</td>
+  </tr>
+  <tr>
+    <td>color_1</td>
+    <td>string</td>
+    <td>first color in color palette</td>
+  </tr>
+  <tr>
+    <td>color_2</td>
+    <td>string</td>
+    <td>second color in color palette</td>
   </tr>
     <tr>
-    <td>happiness_score</td>
+    <td>color_3</td>
+    <td>string</td>
+    <td>third color in color palette</td>
+  </tr>
+  <tr>
+    <td>color_4</td>
+    <td>string</td>
+    <td>forth color in color palette</td>
+  </tr>
+  <tr>
+    <td>color_5</td>
+    <td>string</td>
+    <td>fifth color in color palette</td>
+  </tr>
+  <tr>
+    <td>project_id</td>
     <td>integer</td>
-    <td>the country happiness score out of ten</td>
+    <td>id of project palette belongs to (foreign key)</td>
   </tr>
 </table>
 
@@ -211,38 +236,28 @@ This endpoint will get all country info.
   <summary>(Part of an)Example Response</summary>
   
 ```javascript
-{
-        "id": 450,
-        "country": "United Kingdom",
-        "happiness_score": 6,
-        "continent_id": 83,
-        "created_at": "2019-11-21T18:31:13.266Z",
-        "updated_at": "2019-11-21T18:31:13.266Z"
+[
+    {
+        "id": 1,
+        "palette_name": "Option 1",
+        "color_1": "#192435",
+        "color_2": "#678589",
+        "color_3": "#77ACA2",
+        "color_4": "#EDF3F3",
+        "color_5": "#C59563",
+        "project_id": 1
     },
     {
-        "id": 460,
-        "country": "Moldova",
-        "happiness_score": 5,
-        "continent_id": 83,
-        "created_at": "2019-11-21T18:31:13.274Z",
-        "updated_at": "2019-11-21T18:31:13.274Z"
-    },
-    {
-        "id": 468,
-        "country": "Chile",
-        "happiness_score": 6,
-        "continent_id": 82,
-        "created_at": "2019-11-21T18:31:13.279Z",
-        "updated_at": "2019-11-21T18:31:13.279Z"
-    },
-    {
-        "id": 478,
-        "country": "Nicaragua",
-        "happiness_score": 5,
-        "continent_id": 82,
-        "created_at": "2019-11-21T18:31:13.282Z",
-        "updated_at": "2019-11-21T18:31:13.282Z"
-    },
+        "id": 2,
+        "palette_name": "Option 2",
+        "color_1": "#D8E2DC",
+        "color_2": "#FFE5D9",
+        "color_3": "D1A6AE",
+        "color_4": "#9D8189",
+        "color_5": "#432F32",
+        "project_id": 1
+    }
+]
 ```
 </details>
   
