@@ -117,7 +117,6 @@ app.post('/api/v1/palettes/:id', async (request, response) => {
 
   try {
     const newPalette = await database('palettes').insert(palette, 'id');
-    console.log(response);
     response.status(201).json({ id: newPalette[0] });
   } catch (error) {
     response.status(500).json({ error: 'Internal server error' });
