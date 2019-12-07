@@ -264,9 +264,11 @@ This endpoint will get all palettes for a single project.
 ***
 
 ## GET a single country
-This endpoint will get a single country.
+This endpoint will get a single palette. 
 
-`'/api/v1/countries/:id'`
+`'/api/v1/palette/:id'`
+
+*Note the difference between `/palette/:id` and `palettes/:id` (above)*
 
 ### Query Parameters
 <table>
@@ -293,8 +295,8 @@ This endpoint will get a single country.
     <td>404</td>
   </tr>
     <tr>
-    <td>returns that single country</td>
-    <td>returns "Could not find country with an id of [id]"</td>
+    <td>returns that single palette</td>
+    <td>returns "Palette not found"</td>
   </tr>
 </table>
 
@@ -309,17 +311,42 @@ This endpoint will get a single country.
   <tr>
     <td>id</td>
     <td>integer</td>
-    <td>unique id for each individual continent</td>
+    <td>unique id for each individual </td>
   </tr>
   <tr>
-    <td>country</td>
+    <td>palette_name</td>
     <td>string</td>
-    <td>country name</td>
+    <td>palette name</td>
+  </tr>
+  <tr>
+    <td>color_1</td>
+    <td>string</td>
+    <td>first color in color palette</td>
+  </tr>
+  <tr>
+    <td>color_2</td>
+    <td>string</td>
+    <td>second color in color palette</td>
   </tr>
     <tr>
-    <td>happiness_score</td>
+    <td>color_3</td>
+    <td>string</td>
+    <td>third color in color palette</td>
+  </tr>
+  <tr>
+    <td>color_4</td>
+    <td>string</td>
+    <td>forth color in color palette</td>
+  </tr>
+  <tr>
+    <td>color_5</td>
+    <td>string</td>
+    <td>fifth color in color palette</td>
+  </tr>
+  <tr>
+    <td>project_id</td>
     <td>integer</td>
-    <td>happiness score for that country out of 10</td>
+    <td>id of project palette belongs to (foreign key)</td>
   </tr>
 </table>
 
@@ -327,22 +354,26 @@ This endpoint will get a single country.
   <summary>Example Response</summary>
   
   ```javascript
+[
     {
-        "id": 459,
-        "country": "Kazakhstan",
-        "happiness_score": 5,
-        "continent_id": 83,
-        "created_at": "2019-11-21T18:31:13.273Z",
-        "updated_at": "2019-11-21T18:31:13.273Z"
+        "id": 3,
+        "palette_name": "Ocean",
+        "color_1": "#020216",
+        "color_2": "#00042B",
+        "color_3": "#001E64",
+        "color_4": "#006CAD",
+        "color_5": "#00C0FA",
+        "project_id": 2
     }
+]
   ```
 </details
 
 ***
 
-## POST a new continent
+## POST a new project
 
-`/api/v1/continents`
+`/api/v1/projects`
 
 ### Parameters
 
@@ -353,14 +384,9 @@ This endpoint will get a single country.
     <th>Description</th>
   </tr>
   <tr>
-    <td>continent</td>
+    <td>project</td>
     <td>string</td>
-    <td>continent name</td>
-  </tr>
-  <tr>
-    <td>land_area</td>
-    <td>integer</td>
-    <td>the land area in miles squared</td>
+    <td>project name</td>
   </tr>
 </table>
 
@@ -372,15 +398,15 @@ This endpoint will get a single country.
     <th>422</th>
   </tr>
   <tr>
-    <td>Returns the id of the new continent</td>
-    <td>`error: Expected format: { continent: <String>, land_area: <Integer>}. You're missing a ${requiredParameter} property.`</td>
+    <td>Returns the id of the new project</td>
+    <td>"POST failed, missing required key: project_name"</td>
   </tr>
 </table>
   
 <details>
   <summary>Example</summary>
   
-  `{ "id": 91 }`
+  `{ "id": 9 }`
   
 </details>
 
