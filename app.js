@@ -109,7 +109,7 @@ app.post('/api/v1/palettes/:id', async (request, response) => {
       response.status(422).json({
         error: `POST failed, missing required parameters: ${parameters.join(
           ', '
-        )}. Missing: ${requiredParameter}}`
+        )}. Missing: ${requiredParameter}`
       });
       return;
     }
