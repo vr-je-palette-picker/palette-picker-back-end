@@ -101,7 +101,11 @@ describe('Server', () => {
     });
   });
 
+<<<<<<< HEAD
   describe.skip('POST /api/v1/projects', () => {
+=======
+  describe('POST /api/v1/projects', () => {
+>>>>>>> Fix test for POST /api/v1/palettes/:id success status code
     it('should return a 201 status code and add a new project to the database', async () => {
       const newProject = { project_name: 'Drag Nation' };
 
@@ -128,9 +132,10 @@ describe('Server', () => {
     });
   });
 
-  describe('POST /api/v1/palettes', () => {
+  describe('POST /api/v1/palettes/:id', () => {
     it('should return a 201 status code and add a new palette to the database', async () => {
-      const { id } = await database('projects').first();
+      const selected = await database('projects').first();
+      const { id } = selected;
       const newPalette = {
         palette_name: 'Basement Living',
         color_1: '#3D3935',
@@ -141,7 +146,7 @@ describe('Server', () => {
         project_id: `${id}`
       };
       const response = await request(app)
-        .post('/api/v1/palettes')
+        .post(`/api/v1/palettes/${id}`)
         .send(newPalette);
       const palette = await database('palettes')
         .where({ palette_name: 'Basement Living' })
@@ -227,7 +232,7 @@ describe('Server', () => {
         .send(newInfo);
       const updatedPalette = await database('palettes').first();
 
-      expect(expectedPalette.palette_name).toBe('Option 1');
+      expect(expectedPalette.palette_name).toBe('Option 2');
       expect(response.status).toBe(200);
       expect(updatedPalette.color_2).toBe(newInfo.color_2);
     });
