@@ -412,9 +412,9 @@ This endpoint will get a single palette.
 
 ***
 
-## POST a new country
+## POST a new palette
 
-`/api/v1/countries`
+`/api/v1/palettes`
 
 ### Parameters
 
@@ -425,14 +425,14 @@ This endpoint will get a single palette.
     <th>Description</th>
   </tr>
   <tr>
-    <td>country</td>
-    <td>string</td>
-    <td>country name</td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
     <td>happiness_score</td>
     <td>integer</td>
-    <td>the country happiness score</td>
+    <td></td>
   </tr>
 </table>
 
@@ -440,27 +440,27 @@ This endpoint will get a single palette.
 
 <table>
   <tr>
-    <th>200</th>
+    <th>201</th>
     <th>422</th>
   </tr>
   <tr>
-    <td>Returns the id of the new country</td>
-    <td>`error: Expected format: { country: <String>, happiness_sore: <Integer>}. You're missing a ${requiredParameter} property.`</td>
+    <td>Returns the id of the new palette</td>
+    <td></td>
   </tr>
 </table>
   
 <details>
   <summary>Example</summary>
   
-  `{ "id": 549 }`
+  `{ "id": 14 }`
   
 </details>
 
 ***
 
-## DELETE an existing country
+## DELETE an existing project
 
-`/api/v1/countries/:id`
+`/api/v1/projects/:id`
 
 <table>
   <tr>
@@ -469,10 +469,10 @@ This endpoint will get a single palette.
   </tr>
   <tr>
     <td>200</td>
-    <td>'Country was deleted with success.'</td>
+    <td></td>
   </tr>
     <tr>
     <td>404</td>
-    <td>`Could not find country with the id of ${id}.`</td>
+    <td>"No project was found"</td>
   </tr>
 </table>
