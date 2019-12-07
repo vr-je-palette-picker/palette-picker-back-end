@@ -157,6 +157,8 @@ describe('Server', () => {
     });
 
     it('should return a 422 status code and an error message', async () => {
+      const selected = await database('projects').first();
+      const { id } = selected;
       const incompletePalette = {
         color_1: '#3D3935',
         color_2: '#009DDC',
@@ -165,18 +167,17 @@ describe('Server', () => {
         color_5: '#009B72'
       };
       const response = await request(app)
-        .post('/api/v1/palettes')
+        .post(`/api/v1/palettes/${id}`)
         .send(incompletePalette);
 
       expect(response.status).toBe(422);
-      expect(response.body.error).toEqual({
-        error:
-          'Expected format: { palette_name: <string>, color_1: <string>, color_2: <string>, color_3: <string>, color_4: <string>, color_5: <string>, project_id: <integer> }. You are missing a value for palette_name and project_id.'
-      });
+      expect(response.body.error).toEqual(
+        'POST failed, missing required parameters: palette_name, project_id, color_1, color_2, color_3, color_4, color_5. Missing: palette_name'
+      );
     });
   });
 
-  describe.skip('PATCH /api/v1/projects/:id', () => {
+  describe('PATCH /api/v1/projects/:id', () => {
     it('should return a 200 status code and update the project name', async () => {
       const expectedProject = await database('projects').first();
       const { id } = expectedProject;
