@@ -184,6 +184,22 @@ app.patch('/api/v1/palette/:id', async (request, response) => {
   }
 });
 
+app.delete('/api/v1/projects/:id', async (request, response) => {
+  const { id } = request.params;
+
+  try {
+    const project = await database('projects').where('id', id).del();
+
+    if (project > 0) {
+      return response.status(200).json()
+    } else {
+      response.status(404).json({ error: 'No project found' })
+    }
+  } catch (error) {
+    response.status(500).json(error)
+  }
+});
+
 app.delete('/api/v1/palette/:id', async (request, response) => {
   const { id } = request.params;
 
@@ -203,11 +219,5 @@ app.delete('/api/v1/palette/:id', async (request, response) => {
     response.status(500).json(error);
   }
 });
-
-// delete - /api/projects/:id
-// delete project (CASCADE to delete all pallets)
-
-// delete - /api/pallet/:id
-// delete a pallet from a project
 
 module.exports = app;

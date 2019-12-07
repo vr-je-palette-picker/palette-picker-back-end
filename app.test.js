@@ -101,7 +101,7 @@ describe('Server', () => {
     });
   });
 
-  describe.skip('POST /api/v1/projects', () => {
+  describe('POST /api/v1/projects', () => {
     it('should return a 201 status code and add a new project to the database', async () => {
       const newProject = { project_name: 'Drag Nation' };
 
