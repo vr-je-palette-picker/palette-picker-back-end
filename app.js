@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (request, response) => {
-  response.send(`Let's make the world more colorful!`);
+  response.json(`Let's make the world more colorful!`);
 });
 
 app.get('/api/v1/projects', async (request, response) => {
