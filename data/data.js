@@ -21,7 +21,7 @@ const data = {
       palette_name: 'Option 2',
       color_1: '#D8E2DC',
       color_2: '#FFE5D9',
-      color_3: 'D1A6AE',
+      color_3: '#D1A6AE',
       color_4: '#9D8189',
       color_5: '#432F32',
       project_name: 'Portfolio Website'

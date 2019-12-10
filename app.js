@@ -75,6 +75,24 @@ app.get('/api/v1/palette/:id', async (request, response) => {
   }
 });
 
+app.get(`/api/v1/search`, async (request, response) => {
+  try {
+    const palette_name = request.query.palette_name
+    const palettes = await database('palettes').select();
+    const searchResults = palettes.filter(result => {
+      return result.palette_name == palette_name
+    })
+
+    if (!searchResults) {
+      response.status(404).json(`No palettes with ${palette_name} can be found. Please try again.`)
+    } else {
+      response.status(200).json({ searchResults })
+    }
+  } catch (error) {
+    response.status(500).json({ error: 'Internal server error' })
+  }
+});
+
 app.post('/api/v1/projects', async (request, response) => {
   const project = request.body;
 
@@ -203,11 +221,5 @@ app.delete('/api/v1/palette/:id', async (request, response) => {
     response.status(500).json(error);
   }
 });
-
-// delete - /api/projects/:id
-// delete project (CASCADE to delete all pallets)
-
-// delete - /api/pallet/:id
-// delete a pallet from a project
 
 module.exports = app;
