@@ -101,7 +101,7 @@ describe('Server', () => {
     });
   });
 
-  describe.skip('POST /api/v1/projects', () => {
+  describe('POST /api/v1/projects', () => {
     it('should return a 201 status code and add a new project to the database', async () => {
       const newProject = { project_name: 'Drag Nation' };
 
@@ -256,7 +256,7 @@ describe('Server', () => {
     });
   });
 
-  describe.skip('DELETE /api/v1/projects/:id', () => {
+  describe('DELETE /api/v1/projects/:id', () => {
     it('should return a 200 status code and remove project from database', async () => {
       const currentProjects = await database('projects').select();
       const projectToDelete = await database('projects').first();
@@ -277,7 +277,7 @@ describe('Server', () => {
 
     it('should return a 404 status code and an error message when there is no project found', async () => {
       const response = await request(app).delete('/api/v1/projects/-1');
-      const expectedMessage = 'No project with this id can be found';
+      const expectedMessage = 'No project found';
 
       expect(response.status).toBe(404);
       expect(response.body.error).toBe(expectedMessage);
