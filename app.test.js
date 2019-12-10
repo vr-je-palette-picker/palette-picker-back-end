@@ -31,6 +31,19 @@ describe('Server', () => {
     });
   });
 
+  describe('GET /api/v1/palettes', () => {
+    it('should return a 200 status code and all of the palettes', async () => {
+      const expectedPalettes = await database('palettes').select();
+
+      const response = await request(app).get('/api/v1/palettes');
+      const palettes = response.body;
+      expect(response.status).toBe(200);
+      expect(palettes[0].palette_name).toEqual(
+        expectedPalettes[0].palette_name
+      )
+    })
+  });
+
   describe('GET /api/v1/projects/:id', () => {
     it('should return a 200 status code and the project with the matching id', async () => {
       const expectedProject = await database('projects').first();
