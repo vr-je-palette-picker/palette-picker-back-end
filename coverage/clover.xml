@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1576119022202" clover="3.2.0">
-  <project timestamp="1576119022202" name="All files">
-    <metrics statements="140" coveredstatements="117" conditionals="36" coveredconditionals="31" methods="23" coveredmethods="20" elements="199" coveredelements="168" complexity="0" loc="140" ncloc="140" packages="3" files="4" classes="4"/>
+<coverage generated="1576119867465" clover="3.2.0">
+  <project timestamp="1576119867465" name="All files">
+    <metrics statements="141" coveredstatements="118" conditionals="36" coveredconditionals="31" methods="23" coveredmethods="20" elements="200" coveredelements="169" complexity="0" loc="141" ncloc="141" packages="3" files="4" classes="4"/>
     <package name="palette-picker-backend">
-      <metrics statements="120" coveredstatements="98" conditionals="34" coveredconditionals="29" methods="14" coveredmethods="12"/>
+      <metrics statements="121" coveredstatements="99" conditionals="34" coveredconditionals="29" methods="14" coveredmethods="12"/>
       <file name="app.js" path="/Users/vanessarandall/Turing/Mod_4/Projects/palette-picker-backend/app.js">
-        <metrics statements="119" coveredstatements="97" conditionals="34" coveredconditionals="29" methods="14" coveredmethods="12"/>
+        <metrics statements="120" coveredstatements="98" conditionals="34" coveredconditionals="29" methods="14" coveredmethods="12"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -104,27 +104,28 @@
         <line num="204" count="3" type="cond" truecount="2" falsecount="0"/>
         <line num="205" count="1" type="stmt"/>
         <line num="209" count="2" type="stmt"/>
-        <line num="210" count="8" type="cond" truecount="4" falsecount="0"/>
+        <line num="210" count="2" type="cond" truecount="4" falsecount="0"/>
         <line num="211" count="1" type="stmt"/>
         <line num="214" count="1" type="stmt"/>
-        <line num="218" count="0" type="stmt"/>
-        <line num="222" count="1" type="stmt"/>
-        <line num="223" count="2" type="stmt"/>
-        <line num="225" count="2" type="stmt"/>
-        <line num="226" count="2" type="stmt"/>
-        <line num="230" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="231" count="1" type="stmt"/>
-        <line num="233" count="1" type="stmt"/>
-        <line num="236" count="0" type="stmt"/>
-        <line num="240" count="1" type="stmt"/>
-        <line num="241" count="2" type="stmt"/>
-        <line num="243" count="2" type="stmt"/>
-        <line num="244" count="2" type="stmt"/>
-        <line num="248" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="249" count="1" type="stmt"/>
-        <line num="251" count="1" type="stmt"/>
-        <line num="256" count="0" type="stmt"/>
-        <line num="260" count="1" type="stmt"/>
+        <line num="216" count="1" type="stmt"/>
+        <line num="222" count="0" type="stmt"/>
+        <line num="226" count="1" type="stmt"/>
+        <line num="227" count="2" type="stmt"/>
+        <line num="229" count="2" type="stmt"/>
+        <line num="230" count="2" type="stmt"/>
+        <line num="234" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="235" count="1" type="stmt"/>
+        <line num="237" count="1" type="stmt"/>
+        <line num="240" count="0" type="stmt"/>
+        <line num="244" count="1" type="stmt"/>
+        <line num="245" count="2" type="stmt"/>
+        <line num="247" count="2" type="stmt"/>
+        <line num="248" count="2" type="stmt"/>
+        <line num="252" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="253" count="1" type="stmt"/>
+        <line num="255" count="1" type="stmt"/>
+        <line num="260" count="0" type="stmt"/>
+        <line num="264" count="1" type="stmt"/>
       </file>
       <file name="knexfile.js" path="/Users/vanessarandall/Turing/Mod_4/Projects/palette-picker-backend/knexfile.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>

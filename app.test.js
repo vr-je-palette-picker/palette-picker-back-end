@@ -256,21 +256,27 @@ describe('Server', () => {
     });
 
     it('should return a 422 status code and an error message', async () => {
-      const expectedPalette = await database('palettes').first();
+      const expectedPalette = await database('palettes').where(
+        'palette_name',
+        'Ocean'
+      );
       const newPaletteName = { paletteName: 'Kitchen Walls' };
 
       const response = await request(app)
-        .patch(`/api/v1/palette/${expectedPalette.id}`)
+        .patch(`/api/v1/palette/${expectedPalette[0].id}`)
         .send(newPaletteName);
 
       expect(response.status).toBe(422);
-      expect(response.body.error).toBe('PATCH failed, missing required key');
+      expect(response.body.error).toBe('PATCH failed, missing required key: palette_name');
     });
 
     it('should return a 404 status code and error message', async () => {
       const invalidId = -1;
+      const newPaletteName = { palette_name: 'Not Going to Work!' };
 
-      const response = await request(app).patch(`/api/v1/palette/${invalidId}`);
+      const response = await request(app)
+        .patch(`/api/v1/palette/${invalidId}`)
+        .send(newPaletteName);
 
       expect(response.status).toBe(404);
       expect(response.body.error).toBe('This palette does not exist');

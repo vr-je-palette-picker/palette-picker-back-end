@@ -212,6 +212,10 @@ app.patch('/api/v1/palette/:id', async (request, response) => {
           .where('id', id)
           .update(param, request.body[param]);
         return response.status(202).json({ id: patchedPalette[0].id });
+      } else {
+        return response
+          .status(422)
+          .send({ error: `PATCH failed, missing required key: ${param}` });
       }
     }
   } catch (error) {
