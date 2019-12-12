@@ -1,157 +1,109 @@
 # Palette Picker API
 
-**Contributors:** Jeannie Evans & Vanessa Randall
+### Built By:
+[Jeannie Evans](https://github.com/jmevans0211) & [Vanessa Randall](https://github.com/vrandall66)
 
-This is an API to get the countries and their happiness ranking.
+[Deployed Database](https://vr-je-palette-picker-api.herokuapp.com)
 
-*heroku link*
+### Installation and Setup
 
-***
+From the command line:
+
+1. `git clone https://github.com/vr-je-palette-picker/palette-picker-back-end <PROJECT_NAME>`
+1. Run `npm install`
+1. Run `nodemon server.js`
+
+In your browser:
+Open localhost://3000/
+
+### Documentation:
+
+[Can be found here](https://github.com/vr-je-palette-picker/palette-picker-back-end/blob/master/README.md)
+
+### Tech Stack
+
+- JavaScript / Node.js
+- Express.js
+- PostgreSQL
+- Knex.js
+
+### Project Management Board
+
+[Can be found here](https://github.com/orgs/vr-je-palette-picker/projects)
 
 ### Endpoints
 
-i. GET all projects
+| URL                                                       | Type   | Options                                                                                                                                                                      | Expected response                                                                                                  |
+| --------------------------------------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `api/v1/projects`     | GET    | None                                                                                                                                                                         | ARRAY of all projects currently in the database                                                              |
+| `/api/v1/palettes`      | GET    | None                                                                                                                                                                         | ARRAY of all palettes currently in the database                                                               |
+| `/api/v1/palettes/:id`      | GET    | None                                                                                                                                                                         | ARRAY of all palettes currently in the project requested by project_id                                                               |
+| `/api/v1/project/:id` | GET    | None                                                                                                                                                                         | OBJECT of project requested by project_id                                                                               |
+| `/api/v1/palette/:id`  | GET    | None                                                                                                                                                                         | OBJECT of palette requested by palette_id                                                                                |
+| `/api/v1/search`  | GET    | `{palette_name: <STRING>}`                                                                                                                                                                         | OBJECT of palette requested by palette_name                                                                                |
+| `/api/v1/projects`    | POST   | `{"project_name": <STRING>}`                                                        | Add a new project to the database, an example of a successful response can be found below                            |
+| `/api/v1/palettes/:id`     | POST   | `{"palette_name": <STRING>, "project_id": <INTEGER>, "color_1": <STRING>, "color_2": <STRING>, "color_3": <STRING>, "color_4": <STRING>, "color_5": <STRING>}` | Add a new palette to a pre-existing project within the database, an example of a successful response can be found below |
+| `/api/v1/projects/:id`    | PATCH   | `{"project_name": <STRING>}`                                                        | Update a pre-existing project's name in the database, an example of a successful response can be found below                            |
+| `/api/v1/palette/:id`    | PATCH   | `{"palette_name": <STRING>, "color_1": <STRING>, "color_2": <STRING>, "color_3": <STRING>, "color_4": <STRING>, "color_5": <STRING>}`                                                        | Update a pre-existing palette's name or colors in the database, an example of a successful response can be found below                             |
+| `/api/v1/projects/:id` | DELETE | `{"id": <INTEGER>}`                                                                                                                                                     | `Example of a response can be found below`                                                                             |
+| `/api/v1/palette/:id`  | DELETE | `{"id": <INTEGER>}`                                                                                                                                                     | `Example of a response can be found below`                                                                              |
 
-ii. GET a single project
+#### Example of a GET response to /api/v1/projects
 
-iii. GET all palettes for a single project
-
-iv. GET a single palette
-
-v. POST a new project
-
-vi. POST a new palette
-
-vii. PATCH a project
-
-viii. PATCH a palette
-
-iix. DELETE a project
-
-ix. DELETE a palette
-
-***
-
-## GET all projects
-
-This endpoint will get all project info.
-
-`'/api/v1/projects'`
-
-### Response
-
-<table>
-  <tr>
-    <th>Status</th>
-    <th>Response</th>
-  </tr>
-  <tr>
-    <td>200</td>
-    <td>returns all projects</td>
-  </tr>
-</table>
-
-### Response Parameters
-
-<table style="width:100%">
-  <tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>id</td>
-    <td>integer</td>
-    <td>unique id for each individual continent</td>
-  </tr>
-  <tr>
-    <td>project</td>
-    <td>string</td>
-    <td>project name</td>
-</table>
-<details>
-  <summary>Example Response</summary>
-
-```javascript
-[
+  ```json
     {
         "id": 1,
         "project_name": "Portfolio Website",
         "created_at": "2019-12-06T02:59:43.256Z",
         "updated_at": "2019-12-06T02:59:43.256Z"
     },
-    {
+        {
         "id": 2,
         "project_name": "Nature",
-        "created_at": "2019-12-06T02:59:43.266Z",
-        "updated_at": "2019-12-06T02:59:43.266Z"
+        "created_at": "2019-12-12T04:08:55.672Z",
+        "updated_at": "2019-12-12T04:08:55.672Z"
     }
+  ```
+
+#### Example of a GET response to /api/v1/palettes
+```json
+[
+    {
+        "id": 1,
+        "palette_name": "Option 1",
+        "color_1": "#192435",
+        "color_2": "#678589",
+        "color_3": "#77ACA2",
+        "color_4": "#EDF3F3",
+        "color_5": "#C59563",
+        "project_id": 1
+    },
+    {
+        "id": 2,
+        "palette_name": "Option 2",
+        "color_1": "#D8E2DC",
+        "color_2": "#FFE5D9",
+        "color_3": "D1A6AE",
+        "color_4": "#9D8189",
+        "color_5": "#432F32",
+        "project_id": 1
+    },
+        {
+        "id": 3,
+        "palette_name": "Ocean",
+        "color_1": "#020216",
+        "color_2": "#00042B",
+        "color_3": "#001E64",
+        "color_4": "#006CAD",
+        "color_5": "#00C0FA",
+        "project_id": 2
+    },
 ]
 ```
-</details>
 
-***
+#### Example of a GET response to /api/v1/projects/1
 
-## GET a single project
-
-This endpoint will get a single project.
-
-`'/api/v1/projects/:id'`
-
-### Query Parameters
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>id</td>
-    <td>integer</td>
-    <td>unique id</td>
-  </tr>
-</table>
-
-### Response
-<table>
-  <tr>
-    <th>Status</th>
-    <th>Response</th>
-  </tr>
-  <tr>
-    <td>200</td>
-    <td>404</td>
-  </tr>
-    <tr>
-    <td>returns that single project</td>
-    <td>returns "Project not found"</td>
-  </tr>
-</table>
-
-### Response Parameters
-
-<table style="width:100%">
-  <tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>id</td>
-    <td>integer</td>
-    <td>unique id for each individual project</td>
-  </tr>
-  <tr>
-    <td>project</td>
-    <td>string</td>
-    <td>project name</td>
-  </tr>
-</table>
-
-<details>
-  <summary>Example Response</summary>
-  
-  ```javascript
+  ```json
     {
         "id": 1,
         "project_name": "Portfolio Website",
@@ -159,83 +111,10 @@ This endpoint will get a single project.
         "updated_at": "2019-12-06T02:59:43.256Z"
     }
   ```
-</details
 
-***
+#### Example of a GET response to /api/v1/palettes/1
 
-## GET all palettes for a single project
-
-This endpoint will get all palettes for a single project.
-
-`'/api/v1/palettes/:id'`
-
-### Response
-
-<table>
-  <tr>
-    <th>Status</th>
-    <th>Response</th>
-  </tr>
-  <tr>
-    <td>200</td>
-    <td>returns all palettes from a specific project</td>
-  </tr>
-</table>
-
-### Response Parameters
-
-<table style="width:100%">
-  <tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>id</td>
-    <td>integer</td>
-    <td>unique id for each individual </td>
-  </tr>
-  <tr>
-    <td>palette_name</td>
-    <td>string</td>
-    <td>palette name</td>
-  </tr>
-  <tr>
-    <td>color_1</td>
-    <td>string</td>
-    <td>first color in color palette</td>
-  </tr>
-  <tr>
-    <td>color_2</td>
-    <td>string</td>
-    <td>second color in color palette</td>
-  </tr>
-    <tr>
-    <td>color_3</td>
-    <td>string</td>
-    <td>third color in color palette</td>
-  </tr>
-  <tr>
-    <td>color_4</td>
-    <td>string</td>
-    <td>forth color in color palette</td>
-  </tr>
-  <tr>
-    <td>color_5</td>
-    <td>string</td>
-    <td>fifth color in color palette</td>
-  </tr>
-  <tr>
-    <td>project_id</td>
-    <td>integer</td>
-    <td>id of project palette belongs to (foreign key)</td>
-  </tr>
-</table>
-
-<details>
-  <summary>(Part of an)Example Response</summary>
-  
-```javascript
+```json
 [
     {
         "id": 1,
@@ -257,105 +136,12 @@ This endpoint will get all palettes for a single project.
         "color_5": "#432F32",
         "project_id": 1
     }
-]
-```
-</details>
+  ```
   
-***
-
-## GET a single country
-This endpoint will get a single palette. 
-
-`'/api/v1/palette/:id'`
-
-*Note the difference between `/palette/:id` and `palettes/:id` (above)*
-
-### Query Parameters
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>id</td>
-    <td>integer</td>
-    <td>unique id</td>
-  </tr>
-</table>
-
-### Response
-<table>
-  <tr>
-    <th>Status</th>
-    <th>Response</th>
-  </tr>
-  <tr>
-    <td>200</td>
-    <td>404</td>
-  </tr>
-    <tr>
-    <td>returns that single palette</td>
-    <td>returns "Palette not found"</td>
-  </tr>
-</table>
-
-### Response Parameters
-
-<table style="width:100%">
-  <tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>id</td>
-    <td>integer</td>
-    <td>unique id for each individual </td>
-  </tr>
-  <tr>
-    <td>palette_name</td>
-    <td>string</td>
-    <td>palette name</td>
-  </tr>
-  <tr>
-    <td>color_1</td>
-    <td>string</td>
-    <td>first color in color palette</td>
-  </tr>
-  <tr>
-    <td>color_2</td>
-    <td>string</td>
-    <td>second color in color palette</td>
-  </tr>
-    <tr>
-    <td>color_3</td>
-    <td>string</td>
-    <td>third color in color palette</td>
-  </tr>
-  <tr>
-    <td>color_4</td>
-    <td>string</td>
-    <td>forth color in color palette</td>
-  </tr>
-  <tr>
-    <td>color_5</td>
-    <td>string</td>
-    <td>fifth color in color palette</td>
-  </tr>
-  <tr>
-    <td>project_id</td>
-    <td>integer</td>
-    <td>id of project palette belongs to (foreign key)</td>
-  </tr>
-</table>
-
-<details>
-  <summary>Example Response</summary>
+  #### Example of a GET response to /api/v1/palette/3
   
-  ```javascript
-[
-    {
+  ```json
+          {
         "id": 3,
         "palette_name": "Ocean",
         "color_1": "#020216",
@@ -365,114 +151,52 @@ This endpoint will get a single palette.
         "color_5": "#00C0FA",
         "project_id": 2
     }
-]
   ```
-</details
-
-***
-
-## POST a new project
-
-`/api/v1/projects`
-
-### Parameters
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>project</td>
-    <td>string</td>
-    <td>project name</td>
-  </tr>
-</table>
-
-### Response
-
-<table>
-  <tr>
-    <th>200</th>
-    <th>422</th>
-  </tr>
-  <tr>
-    <td>Returns the id of the new project</td>
-    <td>"POST failed, missing required key: project_name"</td>
-  </tr>
-</table>
   
-<details>
-  <summary>Example</summary>
-  
-  `{ "id": 9 }`
-  
-</details>
+  #### Example of a GET response to /api/v1/search/?palette_name=Ocean
+  ```json
+  {
+    "searchResults": [
+        {
+            "id": 26,
+            "palette_name": "Ocean",
+            "color_1": "#020216",
+            "color_2": "#00042B",
+            "color_3": "#001E64",
+            "color_4": "#006CAD",
+            "color_5": "#00C0FA",
+            "project_id": 78
+        }
+    ]
+}
+```
 
-***
+#### Example of a POST response to /api/v1/projects
 
-## POST a new palette
+```json
+{
+    "id": 6
+}
+```
 
-`/api/v1/palettes`
+#### Example of a POST response to /api/v1/palettes/6
+```json
+{
+    "id": 26
+}
+```
 
-### Parameters
+#### Example of a PATCH response to /api/v1/projects/6
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>happiness_score</td>
-    <td>integer</td>
-    <td></td>
-  </tr>
-</table>
+```json
+{
+    "project": 1
+}
+```
 
-### Response
-
-<table>
-  <tr>
-    <th>201</th>
-    <th>422</th>
-  </tr>
-  <tr>
-    <td>Returns the id of the new palette</td>
-    <td></td>
-  </tr>
-</table>
-  
-<details>
-  <summary>Example</summary>
-  
-  `{ "id": 14 }`
-  
-</details>
-
-***
-
-## DELETE an existing project
-
-`/api/v1/projects/:id`
-
-<table>
-  <tr>
-    <th>Status</th>
-    <th>Response</th>
-  </tr>
-  <tr>
-    <td>200</td>
-    <td></td>
-  </tr>
-    <tr>
-    <td>404</td>
-    <td>"No project was found"</td>
-  </tr>
-</table>
+#### Example of a PATCH response to /api/v1/palette/26
+```json
+{
+    "id": 26
+}
+```
