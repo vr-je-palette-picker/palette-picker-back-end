@@ -40,8 +40,8 @@ describe('Server', () => {
       expect(response.status).toBe(200);
       expect(palettes[0].palette_name).toEqual(
         expectedPalettes[0].palette_name
-      )
-    })
+      );
+    });
   });
 
   describe('GET /api/v1/projects/:id', () => {
@@ -188,8 +188,11 @@ describe('Server', () => {
 
   describe('PATCH /api/v1/projects/:id', () => {
     it('should return a 200 status code and update the project name', async () => {
-      const expectedProject = await database('projects').first();
-      const { id } = expectedProject;
+      const expectedProject = await database('projects').where(
+        'project_name',
+        'Nature'
+      );
+      const { id } = expectedProject[0];
 
       const updatedProject = { project_name: 'Tea and Crumpets' };
 
@@ -203,12 +206,15 @@ describe('Server', () => {
       expect(project.project_name).toBe(updatedProject.project_name);
     });
 
-    it.skip('should return a 422 status code and an error message', async () => {
-      const expectedProject = await database('project').first();
-      const newName = { projectName: 'Tea and Crumpets' };
+    it('should return a 422 status code and an error message', async () => {
+      const expectedProject = await database('projects').where(
+        'project_name',
+        'Nature'
+      );
+      const newName = { projectName: 'Biscuits and Gravy' };
 
       const response = await request(app)
-        .patch(`/api/v1/projects/${expectedProject.id}`)
+        .patch(`/api/v1/projects/${expectedProject[0].id}`)
         .send(newName);
 
       expect(response.status).toBe(422);
@@ -217,34 +223,36 @@ describe('Server', () => {
       );
     });
 
-    it.skip('should return a 404 status code and an error message', async () => {
-      const invalidId = -1;
-
-      const response = await request(app).patch(
-        `/api/v1/projects/${invalidId}`
-      );
+    it('should return a 404 status code and an error message', async () => {
+      const updatedProject = { project_name: 'Tea and Crumpets' };
+      const response = await request(app)
+        .patch('/api/v1/projects/-1')
+        .send(updatedProject);
+      const expectedMessage = 'This project does not exist';
 
       expect(response.status).toBe(404);
-      expect(response.body.error).toBe('This project does not exist');
+      expect(response.body.error).toBe(expectedMessage);
     });
   });
 
-  describe.skip('PATCH /api/v1/palette/:id', () => {
-    it('should return a 200 status code and update the project param passed in', async () => {
-      const expectedPalette = await database('palettes').first();
+  describe('PATCH /api/v1/palette/:id', () => {
+    it('should return a 202 status code and update the project param passed in', async () => {
+      const expectedPalette = await database('palettes').where(
+        'palette_name',
+        'Ocean'
+      );
       const newInfo = {
-        palette_name: 'Fresh Fall',
-        color_2: '#60463B'
+        palette_name: 'Fresh Fall'
       };
-
       const response = await request(app)
-        .patch(`/api/v1/palette/${expectedPalette.id}`)
+        .patch(`/api/v1/palette/${expectedPalette[0].id}`)
         .send(newInfo);
-      const updatedPalette = await database('palettes').first();
-
-      expect(expectedPalette.palette_name).toBe('Option 2');
-      expect(response.status).toBe(200);
-      expect(updatedPalette.color_2).toBe(newInfo.color_2);
+      const updatedPalette = await database('palettes').where(
+        'palette_name',
+        'Fresh Fall'
+      );
+      expect(updatedPalette[0].palette_name).toBe('Fresh Fall');
+      expect(response.status).toBe(202);
     });
 
     it('should return a 422 status code and an error message', async () => {
