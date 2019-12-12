@@ -267,7 +267,9 @@ describe('Server', () => {
         .send(newPaletteName);
 
       expect(response.status).toBe(422);
-      expect(response.body.error).toBe('PATCH failed, missing required key: palette_name');
+      expect(response.body.error).toBe(
+        'PATCH failed, missing required key: palette_name'
+      );
     });
 
     it('should return a 404 status code and error message', async () => {
