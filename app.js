@@ -173,12 +173,12 @@ app.patch('/api/v1/projects/:id', async (request, response) => {
       .where({ id })
       .update({ project_name });
 
-    if (project) {
-      return response.status(200).json({ project });
-    } else {
+    if (!project) {
       return response
         .status(404)
         .json({ error: 'This project does not exist' });
+    } else {
+      return response.status(200).json({ project });
     }
   } catch (error) {
     response.status(500).json({ error: 'Internal server error' });
