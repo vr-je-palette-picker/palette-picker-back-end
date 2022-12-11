@@ -20,7 +20,7 @@
   "homepage": "https://github.com/jmevans0211/palette-picker-back-end#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "jest": "^24.9.0",
     "knex": "^0.20.3",
     "node": "^13.3.0",
